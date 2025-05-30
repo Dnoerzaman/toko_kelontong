@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Edit Barang{% endblock %}
+{% block content %}
+<h2>Edit Barang</h2>
+<form method="POST">
+  <label>Nama Barang:</label>
+  <input type="text" name="nama" value="{{ barang.nama }}" required>
+  <label>Harga:</label>
+  <input type="number" name="harga" value="{{ barang.harga }}" required>
+  <label>Stok:</label>
+  <input type="number" name="stok" value="{{ barang.stok }}" required>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

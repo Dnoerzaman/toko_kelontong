@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+header {
+    background-color: #007bff;
+    padding: 10px;
+    color: white;
+}
+nav a {
+    margin-right: 10px;
+    color: white;
+    text-decoration: none;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+table, th, td {
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+input, button {
+    padding: 8px;
+    margin-top: 5px;
+    display: block;
+}
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.flash {
+    list-style: none;
+    background-color: #ffc107;
+    padding: 10px;
+}

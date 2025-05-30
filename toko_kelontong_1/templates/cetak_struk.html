@@ -1,0 +1,28 @@
+{% extends "layout.html" %} 
+{% block title %}Struk Pemesanan{% endblock %} {%
+block content %}
+<h2>Struk Pemesanan</h2>
+<p>Tanggal: {{ pesanan.tanggal }}</p>
+<p>Total: Rp{{ pesanan.total }}</p>
+<table>
+  <thead>
+    <tr>
+      <th>Nama Barang</th>
+      <th>Jumlah</th>
+      <th>Harga</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in detail %}
+    <tr>
+      <td>{{ d.nama }}</td>
+      <td>{{ d.jumlah }}</td>
+      <td>Rp{{ d.harga }}</td>
+      <td>Rp{{ d.subtotal }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<button onclick="window.print()">Cetak</button>
+{% endblock %}

@@ -1,0 +1,5 @@
+flask
+mysql-connector-python
+fpdf
+openpyxl xhtml2pdf
+pip install pandas openpyxl

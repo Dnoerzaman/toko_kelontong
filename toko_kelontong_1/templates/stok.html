@@ -1,0 +1,101 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">Stok Barang</h2>
+
+  <!-- Form Filter -->
+  <form method="get" action="{{ url_for('stok') }}" class="mb-3">
+    <div class="input-group">
+      <input
+        type="text"
+        name="filter_nama"
+        class="form-control"
+        placeholder="Filter nama barang..."
+        value="{{ request.args.get('filter_nama', '') }}"
+      />
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="{{ url_for('stok') }}" class="btn btn-secondary">Reset</a>
+    </div>
+  </form>
+
+  <!-- Form Tambah Barang -->
+  <form method="post" action="{{ url_for('tambah_stok') }}" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-4">
+        <input
+          type="text"
+          name="nama"
+          class="form-control"
+          placeholder="Nama barang"
+          required
+        />
+      </div>
+      <div class="col-md-3">
+        <input
+          type="number"
+          name="harga"
+          class="form-control"
+          placeholder="Harga"
+          required
+        />
+      </div>
+      <div class="col-md-3">
+        <input
+          type="number"
+          name="stok"
+          class="form-control"
+          placeholder="Stok"
+          required
+        />
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">Tambah</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Flash message -->
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="alert alert-info">{{ messages[0] }}</div>
+  {% endif %} {% endwith %}
+
+  <!-- Tabel Barang -->
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>No</th>
+        <th>Nama Barang</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for barang in barang %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ barang.nama }}</td>
+        <td>Rp {{ "{:,.0f}".format(barang.harga) }}</td>
+        <td>{{ barang.stok }}</td>
+        <td>
+          <a
+            href="{{ url_for('edit_stok', id=barang.id) }}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+          <a
+            href="{{ url_for('hapus_stok', id=barang.id) }}"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Yakin ingin menghapus barang ini?')"
+            >Hapus</a
+          >
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="text-center">Tidak ada data barang</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

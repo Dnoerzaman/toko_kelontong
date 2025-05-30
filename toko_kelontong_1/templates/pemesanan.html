@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Halaman Pemesanan</h2>
+
+    <!-- Form Filter -->
+    <form method="get" action="{{ url_for('pemesanan') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="filter_nama" class="form-control" placeholder="Filter nama barang..." value="{{ filter_nama }}">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="{{ url_for('pemesanan') }}" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+
+    <!-- Form Pemesanan -->
+    <form method="post" action="{{ url_for('pemesanan') }}">
+      <button type="submit" class="btn btn-success">Pesan Sekarang</button>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Pilih</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Jumlah Pesan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for barang in barang %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="barang_id" value="{{ barang.id }}" id="cb{{ barang.id }}">
+                    </td>
+                    <td>{{ barang.nama }}</td>
+                    <td>Rp {{ "{:,.0f}".format(barang.harga) }}</td>
+                    <td>{{ barang.stok }}</td>
+                    <td>
+                        <input type="number" name="jumlah" class="form-control" min="1" max="{{ barang.stok }}" value="1" disabled id="jumlah{{ barang.id }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+
+</div>
+
+<script>
+// Enable jumlah input hanya jika checkbox dipilih
+document.querySelectorAll('input[type=checkbox][name=barang_id]').forEach(function(checkbox){
+    checkbox.addEventListener('change', function(){
+        let jumlahInput = document.getElementById('jumlah' + this.value);
+        if(this.checked){
+            jumlahInput.disabled = false;
+        } else {
+            jumlahInput.disabled = true;
+            jumlahInput.value = 1; // reset jumlah jika tidak dicentang
+        }
+    });
+});
+</script>
+
+{% endblock %}

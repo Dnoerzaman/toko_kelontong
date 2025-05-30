@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Laporan Penjualan{% endblock %}
+
+{% block content %}
+<h2>Laporan Penjualan</h2>
+
+<div class="mb-3">
+  <a href="{{ url_for('export_laporan_harian') }}" class="btn btn-success me-2">Export Laporan Harian (Excel)</a>
+  <a href="{{ url_for('export_laporan_mingguan') }}" class="btn btn-success">Export Laporan Mingguan (Excel)</a>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Tanggal</th>
+      <th>Total</th>
+      <th>Isi Pesanan</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if laporan %}
+      {% for row in laporan %}
+      <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.tanggal.strftime('%Y-%m-%d %H:%M:%S') if row.tanggal else '' }}</td>
+        <td>Rp {{ "{:,.2f}".format(row.total) }}</td>
+        <td>{{ row.isi }}</td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4" class="text-center">Tidak ada data laporan.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}

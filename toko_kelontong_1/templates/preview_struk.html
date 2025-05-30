@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Preview Struk Pemesanan{% endblock %}
+
+{% block content %}
+<h2>Preview Struk Pemesanan</h2>
+<p><strong>Tanggal:</strong> {{ pesanan.tanggal }}</p>
+<p><strong>Total:</strong> Rp{{ pesanan.total }}</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Nama Barang</th>
+      <th>Jumlah</th>
+      <th>Harga</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in detail %}
+    <tr>
+      <td>{{ d.nama }}</td>
+      <td>{{ d.jumlah }}</td>
+      <td>Rp{{ d.harga }}</td>
+      <td>Rp{{ d.subtotal }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ url_for('cetak_struk', pesanan_id=pesanan.id) }}" class="btn btn-primary">Cetak Struk</a>
+<a href="{{ url_for('pemesanan') }}" class="btn btn-secondary">Kembali ke Pemesanan</a>
+{% endblock %}

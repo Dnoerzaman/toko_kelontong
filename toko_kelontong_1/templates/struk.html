@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Struk Pemesanan</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        color: #333;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .info {
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #000;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .total-row td {
+        font-weight: bold;
+      }
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Struk Pemesanan Barang</h2>
+
+    <div class="info">
+      <p><strong>Nama Pelanggan:</strong> {{ nama_pelanggan }}</p>
+      <p><strong>Tanggal Pemesanan:</strong> {{ tanggal }}</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nama Barang</th>
+          <th>Jumlah</th>
+          <th>Harga</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in pesanan %}
+        <tr>
+          <td>{{ item.nama_barang }}</td>
+          <td>{{ item.jumlah }}</td>
+          <td>Rp {{ '{:,.0f}'.format(item.harga) }}</td>
+          <td>Rp {{ '{:,.0f}'.format(item.subtotal) }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="total-row">
+          <td colspan="3">Total</td>
+          <td>Rp {{ '{:,.0f}'.format(total) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      <p>Terima kasih telah berbelanja</p>
+      <p>Silahkan Berkunjung Kembali</p>
+    </div>
+  </body>
+</html>
